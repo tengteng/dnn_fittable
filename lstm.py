@@ -5,7 +5,7 @@ from data_gen import FUNCS
 
 
 if __name__ == "__main__":
-    func = FUNCS["has_gcd"]
+    func = FUNCS["bitcount"]
     x_train = np.random.randn(50000, 20)
     y_train = np.vstack(map(func, x_train, [True] * len(x_train)))
     x_test = np.random.randn(10000, 20)

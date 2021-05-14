@@ -1,6 +1,6 @@
 import numpy as np
 from math import sin, cos, gcd
-
+from random import randrange
 
 def complex_mod(vec, tf=False):  # not fittable
     score = (
@@ -65,10 +65,30 @@ def ifelse_logic(vec, tf=False): # fc fittable
         return 0 if vec[4] > vec[5] else 1
 
 
-def has_gcd(vec, tf=False): # not fittable
+def has_gcd(vec, tf=False):
+    # not fittable
     x = int(vec[0] * 100)
     y = int(vec[1] * 100)
     return 0 if gcd(x, y) == 1 else 1
+
+
+def random_range(vec, tf=False):
+    # fc fittable - achieved 92% test accuracy. LSTM overfit.
+    greater = int(max(vec[0], vec[1]) * 10) + 2
+    lesser  = int(min(vec[0], vec[1]) * 10)
+    acc = 0
+    for i in range(5):
+        acc += randrange(lesser, greater)
+    acc = acc // 5
+    return 1 if acc >=1 else 0
+
+
+def bitcount(vec, tf=False):
+    x = int(vec[0] * 10)
+    y = int(vec[1] * 10)
+    diff = abs(bin(x).count('1') - bin(y).count('1'))
+    return 1 if diff == 1 else 0
+
 
 FUNCS = {
     "complex_mod": complex_mod,
@@ -79,10 +99,12 @@ FUNCS = {
     "surf": surf,
     "ifelse_logic": ifelse_logic,
     "has_gcd": has_gcd,
+    "random_range": random_range,
+    "bitcount": bitcount,
 }
 
 if __name__ == "__main__":
-    func = FUNCS["has_gcd"]
+    func = FUNCS["bitcount"]
     with open("train.txt", "w") as fp:
         data = np.random.randn(10000, 20)
         labels = np.vstack(map(func, data))
