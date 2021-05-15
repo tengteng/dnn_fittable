@@ -15,9 +15,7 @@ if __name__ == "__main__":
         [
             tf.keras.layers.Flatten(input_shape=(20,)),
             tf.keras.layers.Reshape((1, -1)),
-            tf.keras.layers.LSTM(
-                units=100,
-            ),
+            tf.keras.layers.LSTM(units=100,),
             tf.keras.layers.Dense(3),
         ]
     )
